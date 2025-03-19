@@ -5,7 +5,7 @@ const http = require('http');
 const app = express();
 const PORT = 3000;
 let count = 0;
-
+var data;
 const server = http.createServer(app);
 const socket_io = new socket_conn.Server(server, {
     cors: {
@@ -29,11 +29,19 @@ socket_io.on('connection', (socket) => {
     });
 });
 
-app.post('/send_nonwidged', (req, res) => {
-    const data = req.body;
+app.get('/er', (req, res) => {
+  res.send(data);
+  socket_io.emit("serverMessage", data);
+
+  
+});
+
+app.post('/snw', (req, res) => {
+    res.send("done");
+    data = req.body;
     console.log("Received from HTTP:", data);
     socket_io.emit("serverMessage", data);
-    res.send("done");
+    
 });
 
 server.listen(PORT, () => {
