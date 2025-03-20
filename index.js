@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 socket_io.on('connection', (socket) => {
     console.log('A client connected');
-    socket.emit('serverMessage', '');
+    socket.emit('serverMessage', 'hello');
     socket.on('disconnect', () => {
         console.log('A client disconnected');
     });
